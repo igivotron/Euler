@@ -1,0 +1,62 @@
+# Les imports
+import matplotlib.pyplot as plt
+from math import e
+import numpy as np
+
+# Les constantes
+a = 1
+c = 0
+i = 0
+x = np.linspace(0, 2, 100)
+echantillon = 20 #Doit être un diviseur de 100
+
+
+#Listes
+y1 = [1]
+y1a = 1
+error_list = []
+
+# Calcul e^x
+ye = pow(e,x)
+
+# Méthode de Euler par 5 échantillons
+x1 = np.linspace(0,2,echantillon)
+for i in range(len(x1)-1):
+    y1a = y1a + y1a * (x1[a]-x1[a-1])
+    y1.append(y1a)
+    a+=1
+    i+=1
+
+# Erreur doit sortir valeur 0,25,50,75,99
+b = 100/(echantillon-1)
+for j in range(echantillon):
+    c = b*j
+    if c == 100:
+        c=c-1
+    error = ye[int(c)] - y1[int(j)]
+    error_list.append(error)
+
+print(error_list)
+
+
+
+#1er graphique
+plt.figure("e^x")
+plt.axhline(y=0,color='blue') #ligne horizontale
+plt.axvline(x=0,color='blue') #ligne veticale
+plt.plot(x,ye,color='red', label=('e^x')) #tracer e^x
+plt.plot(x1,y1, label='Echantillonnage par ' + str(echantillon)) #tracer l'échantillonnage
+plt.axis('equal')
+plt.grid(True)
+plt.legend()
+
+
+#2ème graphique
+plt.figure('Boite à moustaches')
+plt.boxplot(error_list)
+plt.axis('equal')
+plt.grid(True)
+
+
+#Afficher graphiques
+plt.show()
